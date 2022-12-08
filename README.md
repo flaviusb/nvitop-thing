@@ -11,4 +11,10 @@ virtualenv foo
 pip3 install --upgrade nvitop
 ```
 
-Then, inside the virtualenv
+Then, later, to run you can run:
+
+```bash
+cd nvitop-thing
+. foo/bin/activate
+python3 logging-script-thing.py
+```
