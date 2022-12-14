@@ -4,7 +4,13 @@ import time
 from logging.handlers import MemoryHandler, TimedRotatingFileHandler, WatchedFileHandler
 import logging
 
+import sys
+
 lh = logging.getLogger()
+
+out_location = "usage.csv"
+if len(sys.argv) > 1:
+  out_location = sys.argv[1]
 
 def getGraphicsCardUsage(snapshot, t):
     out = []
@@ -14,7 +20,7 @@ def getGraphicsCardUsage(snapshot, t):
       out.append(f"Process,{t},{process.username},{process.name},{process.elapsed_time_in_seconds},{process.gpu_time},{process.gpu_sm_utilization},{process.gpu_memory_utilization}")
     return lh.makeRecord("", 10, "", 10, '\n'.join(out), [], "")
 
-file_handler = TimedRotatingFileHandler("usage.csv", backupCount=10000, when='W0')
+file_handler = TimedRotatingFileHandler(out_location, backupCount=10000, when='W0')
 x = ResourceMetricCollector()
 
 while True:

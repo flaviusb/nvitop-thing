@@ -19,6 +19,14 @@ cd nvitop-thing
 python3 logging-script-thing.py
 ```
 
+The logging script can take a location to output the logfile to. For example:
+
+```bash
+cd nvitop-thing
+. foo/bin/activate
+python3 logging-script-thing.py /var/log/gpuusage/gpu-usage.log
+```
+
 ## Output format
 
 The script outputs two sets of csv data interleaved into log files. The log files are rotated weekly. The default base filename is `usage.csv`.
