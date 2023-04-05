@@ -1,6 +1,17 @@
 # nvitop-thing
 A small script for writing out gpu usage data using nvitop
 
+## Requirements
+
+This requires nvitop, which itself requires
+- Python 3.7+
+- NVIDIA Management Library (NVML)
+- nvidia-ml-py
+- psutil
+- cachetools
+- termcolor
+- curses (with `libncursesw`)
+
 ## To install this
 
 ```bash
