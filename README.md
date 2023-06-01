@@ -55,3 +55,19 @@ and
 ```
 
 And so you can filter based on whether the first cell is `PhysicalGPU` or `Process`.
+
+## Using the kicker maker
+
+The kicker maker makes a script that you can run from a crontab, which will restart the logger if it has died.
+
+The kicker maker can be run like so:
+
+```shell
+./mk-kicker.sh --base /program/location/nvitop-thing/ --venv nameOfVirtualenv --log /var/log/gpuusage/gpu-usage.log --python 3.9
+```
+
+which will try to run the logger from within `/program/location/nvitop-thing/`, using the venv inside that folder called `nameOfVirtualenv`, logging to `/var/log/gpuusage/gpu-usage.log`, and using pyton 3.9 and pip 3.9.
+
+If your log location is somewhere only root can write to, then you will need to run the kicker script from the superuser's crontab.
+
+The kicker is intended to be run a few times every hour from cron or equivalent; how often is up to you though. It causes minimal load when it runs, testing whether the logger is already running and exiting quickly if it is.

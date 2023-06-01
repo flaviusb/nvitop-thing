@@ -4,6 +4,7 @@ kicker="kick.sh"
 base="~/nvitop-thing/"
 venv="foo"
 log="/var/log/gpuusage/gpu-usage.log"
+python_version="3.9"
 
 usage() { cat <<HELP
 mk-kicker.sh: Generates a shell script that, when run, runs the logger if it is not already running.
@@ -13,6 +14,12 @@ Options:
   --base    PATH to the directory the logger is in
   --venv    The name of the venv or virtualenv
   --log     Full PATH to the log location
+  --python  Which Python version we are using
+            This must be just the version number.
+            We need 3.7 or later. The corresponding
+            pip must also be installed.
+            Python must be able to be run as
+            \`python\$python_version\`; ditto pip.
 
 Any argument not given will use a default value.
 
@@ -59,6 +66,11 @@ while [[ $# > 0 ]]; do
         shift
         shift
         ;;
+       --python)
+        python_version="$value"
+        shift
+        shift
+        ;;
       *)
         echo "I don't understand: $opt"
         exit 1
@@ -76,8 +88,8 @@ if running
 then
   echo Already running
 else
-  alias python3=python3.9
-  alias pip3=pip3.9
+  alias python3=python$python_version
+  alias pip3=pip$python_version
   cd "$base"
   . "$venv/bin/activate"
   python3 logging-script-thing.py "$log"
