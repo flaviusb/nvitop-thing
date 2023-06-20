@@ -31,7 +31,7 @@ def getGraphicsCardUsage(snapshot, t):
     for device in snapshot.devices:
       out.append(f"PhysicalGPU,{t},{device.physical_index},{device.memory_used},{device.memory_free},{device.memory_total},\"{device.performance_state}\",{device.power_usage},{device.gpu_utilization}")
       for process in device.real.processes().values():
-          out.append(f"Process,{t},{process.username()},{process.name()},{process.elapsed_time_in_seconds()},{process.gpu_time()},{process.gpu_sm_utilization()},{process.gpu_memory_utilization()}")
+          out.append(f"Process,{t},{process.username()},{process.name()},{process.elapsed_time_in_seconds()},{process.gpu_sm_utilization()},{process.gpu_memory_utilization()},{process.command()}")
     return lh.makeRecord("", 10, "", 10, '\n'.join(out), [], "")
 
 file_handler = TimedRotatingFileHandler(out_location, backupCount=10000, when='W0')
