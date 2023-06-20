@@ -51,7 +51,7 @@ The two formats are
 and
 
 ```csv
-"Process",unix time,process.username,process.name,process.elapsed_time_in_seconds,process.gpu_time,process.gpu_sm_utilization,process.gpu_memory_utilization()
+"Process",unix time,process username,process name,process elapsed_time_in_seconds,process gpu_sm_utilization,process gpu_memory_utilization, process commandline
 ```
 
 And so you can filter based on whether the first cell is `PhysicalGPU` or `Process`.
