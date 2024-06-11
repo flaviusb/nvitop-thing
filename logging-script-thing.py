@@ -28,10 +28,17 @@ from nvitop.api.process import GpuProcess, HostProcess
 
 def getGraphicsCardUsage(snapshot, t):
     out = []
+    users = {}
     for device in snapshot.devices:
       out.append(f"PhysicalGPU,{t},{device.physical_index},{device.memory_used},{device.memory_free},{device.memory_total},\"{device.performance_state}\",{device.power_usage},{device.gpu_utilization}")
       for process in device.real.processes().values():
           out.append(f"Process,{t},{process.username()},{process.name()},{process.elapsed_time_in_seconds()},{process.gpu_sm_utilization()},{process.gpu_memory_utilization()},{process.command()}")
+          if users.get(process.username()) == None:
+            users[process.username()] = process.gpu_memory_utilization()
+          else:
+            users[process.username()] += process.gpu_memory_utilization()
+    for user_name, user_mem in users:
+      out.append(f"User,{t},{user_name},{user_mem}")
     return lh.makeRecord("", 10, "", 10, '\n'.join(out), [], "")
 
 file_handler = TimedRotatingFileHandler(out_location, backupCount=10000, when='W0')
