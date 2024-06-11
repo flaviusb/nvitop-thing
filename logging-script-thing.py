@@ -38,8 +38,8 @@ def getGraphicsCardUsage(snapshot, t):
           else:
             mem, sm = users[process.username()]
             users[process.username()] = (mem + process.gpu_memory_utilization(), sm + process.gpu_sm_utilization())
-    for user_name, user_data in users:
-      user_mem, user_sm = user_data
+    for user_name in users:
+      user_mem, user_sm = users[user_name]
       out.append(f"User,{t},{user_name},{user_mem},{user_sm}")
     return lh.makeRecord("", 10, "", 10, '\n'.join(out), [], "")
 
