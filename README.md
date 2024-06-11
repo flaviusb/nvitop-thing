@@ -17,7 +17,7 @@ This requires nvitop, which itself requires
 ```bash
 git clone https://github.com/flaviusb/nvitop-thing.git
 cd nvitop-thing
-virtualenv foo
+python -m venv foo  # or you can use: virtualenv foo
 . foo/bin/activate
 pip3 install --upgrade nvitop
 ```
