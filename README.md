@@ -57,7 +57,7 @@ and
 and
 
 ```csv
-"User",unix time,process username,total gpu_memory_utilization
+"User",unix time,process username,total gpu_memory_utilization,total gpu_sm_utilization
 ```
 
 And so you can filter based on whether the first cell is `PhysicalGPU` or `Process` or `User`.
